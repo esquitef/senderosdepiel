@@ -1,6 +1,6 @@
 FROM php:8.4-cli
 
-# Instalar dependencias del sistema
+# Instalar dependencias del sistema (incluye Node.js y npm)
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -16,30 +16,31 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Establecer directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar archivos de configuración primero (mejor cache)
-COPY composer.json composer.lock package.json package-lock.json vite.config.js ./
-
-# Instalar dependencias PHP y Node
-RUN composer install --no-interaction --optimize-autoloader --no-dev
-RUN npm install
-
-# Copiar el resto del código
+# Copiar TODO el código (NO solo los configs)
 COPY . .
 
-# Compilar assets (Tailwind + Vite)
-RUN npm run build
+# Instalar dependencias de PHP
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# Permisos
+# Instalar dependencias de Node y compilar assets
+RUN npm install && npm run build
+
+# Configurar permisos
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
+# Enlace simbólico para storage
 RUN php artisan storage:link
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
 
+# Cachear configuración (opcional, acelera la app)
+RUN php artisan config:cache
+
+# Exponer puerto
 EXPOSE 8080
+
+# Iniciar Laravel con puerto dinámico
 CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
