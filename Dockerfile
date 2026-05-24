@@ -32,4 +32,4 @@ RUN chown -R www-data:www-data /var/www/html \
 EXPOSE 8080
 
 # Comando para iniciar Laravel
-CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
+CMD sh -c "php artisan config:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
