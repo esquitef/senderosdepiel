@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolsas Artesanales</title>
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
 </head>
 
 <!-- MODAL -->
@@ -46,7 +46,7 @@ function cerrarModal(){
 
             <a href="#" class="logo-container">
 
-    <img src="{{ asset('imagenes/logo.png') }}" class="logo-img">
+<img src="{{ secure_asset('imagenes/logo.png') }}" class="logo-img">
 
     <span class="logo-text">
         Senderos de Piel
@@ -57,7 +57,7 @@ function cerrarModal(){
             <input type="checkbox" id="menu"/>
 
             <label for="menu">
-                <img src="{{ asset('imagenes/menu.png') }}" class="menu-icono" alt="">
+                <img src="{{ secure_asset('imagenes/menu.png') }}" class="menu-icono" alt="">
             </label>
 
             <nav class="navbar">
