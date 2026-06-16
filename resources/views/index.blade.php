@@ -127,7 +127,7 @@ function cerrarModal(){
 
     @foreach($bolsas->take(5) as $bolsa)
 
-        <img src="{{ asset('storage/' . $bolsa->imagen) }}">
+        <img src="{{ $bolsa->imagen }}">
 
     @endforeach
 
@@ -146,7 +146,7 @@ function cerrarModal(){
                 <div class="product-1">
 
                     <img
-src="{{ asset('storage/' . $bolsa->imagen) }}"
+src="{{ $bolsa->imagen }}"
 alt=""
 onclick="abrirModal(this.src)"
 >

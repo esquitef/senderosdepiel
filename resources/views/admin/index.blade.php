@@ -109,7 +109,7 @@
                 <tr>
 
                     <td>
-                        <img src="{{ asset('storage/' . $bolsa->imagen) }}">
+                        <img src="{{ $bolsa->imagen }}">
                     </td>
 
                     <td>{{ $bolsa->nombre }}</td>
