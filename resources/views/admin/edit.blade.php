@@ -206,6 +206,18 @@
                 >{{ $bolsa->descripcion }}</textarea>
             </div>
 
+
+            <div class="form-group">
+    <label>Categoría</label>
+    <select name="categoria" required style="width:100%; padding:14px 18px; border:2px solid #3f3456; border-radius:12px; background:#1b1726; color:white; font-size:15px; font-family:'Poppins',sans-serif; outline:none;">
+        <option value="Crossbody" {{ $bolsa->categoria == 'Crossbody' ? 'selected' : '' }}>Crossbody</option>
+        <option value="Carteras" {{ $bolsa->categoria == 'Carteras' ? 'selected' : '' }}>Carteras</option>
+        <option value="Bolsa duo" {{ $bolsa->categoria == 'Bolsa duo' ? 'selected' : '' }}>Bolsa duo</option>
+        <option value="Mochilas" {{ $bolsa->categoria == 'Mochilas' ? 'selected' : '' }}>Mochilas</option>
+        <option value="Bolsas varias" {{ $bolsa->categoria == 'Bolsas varias' ? 'selected' : '' }}>Bolsas varias</option>
+    </select>
+</div>
+
             <div class="form-group">
                 <label>Imagen actual</label>
                 <div class="imagen-actual">

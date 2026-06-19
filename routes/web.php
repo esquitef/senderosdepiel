@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminBolsaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BolsaController::class, 'index']);
+Route::get('/secciones', [BolsaController::class, 'secciones']);
+Route::get('/secciones/{categoria}', [BolsaController::class, 'categoria']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -124,6 +124,20 @@
 
             <div class="input-group">
 
+    <label>Categoría</label>
+
+    <select name="categoria" required style="width:100%; padding:15px; border:none; border-radius:10px; background:#3f3456; color:white; font-size:16px;">
+        <option value="Crossbody">Crossbody</option>
+        <option value="Carteras">Carteras</option>
+        <option value="Bolsa duo">Bolsa duo</option>
+        <option value="Mochilas">Mochilas</option>
+        <option value="Bolsas varias">Bolsas varias</option>
+    </select>
+
+</div>
+
+            <div class="input-group">
+
                 <label>Imagen</label>
 
                 <input

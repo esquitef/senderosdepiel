@@ -10,6 +10,7 @@ class Bolsa extends Model
         'nombre',
         'precio',
         'descripcion',
+        'categoria',
         'imagen'
     ];
 }
