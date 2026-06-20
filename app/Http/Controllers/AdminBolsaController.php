@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bolsa;
+use App\Models\Venta;
 use Illuminate\Http\Request;
 use Cloudinary\Cloudinary;
 
@@ -34,10 +35,12 @@ class AdminBolsaController extends Controller
         );
 
         Bolsa::create([
-            'nombre'      => $request->nombre,
-            'precio'      => $request->precio,
-            'descripcion' => $request->descripcion,
-            'imagen'      => $resultado['secure_url'],
+            'nombre'        => $request->nombre,
+            'precio'        => $request->precio,
+            'valor_fabrica' => $request->valor_fabrica,
+            'descripcion'   => $request->descripcion,
+            'categoria'     => $request->categoria,
+            'imagen'        => $resultado['secure_url'],
         ]);
 
         return redirect('/');
@@ -52,6 +55,21 @@ class AdminBolsaController extends Controller
     public function destroy(Bolsa $bolsa)
     {
         $bolsa->delete();
+        return redirect('/admin');
+    }
+
+    public function vender(Bolsa $bolsa)
+    {
+        Venta::create([
+            'nombre'        => $bolsa->nombre,
+            'categoria'     => $bolsa->categoria,
+            'precio'        => $bolsa->precio,
+            'valor_fabrica' => $bolsa->valor_fabrica,
+            'imagen'        => $bolsa->imagen,
+        ]);
+
+        $bolsa->delete();
+
         return redirect('/admin');
     }
 
@@ -71,11 +89,35 @@ class AdminBolsaController extends Controller
             $bolsa->imagen = $resultado['secure_url'];
         }
 
-        $bolsa->nombre      = $request->nombre;
-        $bolsa->precio      = $request->precio;
-        $bolsa->descripcion = $request->descripcion;
+        $bolsa->nombre        = $request->nombre;
+        $bolsa->precio        = $request->precio;
+        $bolsa->valor_fabrica = $request->valor_fabrica;
+        $bolsa->descripcion   = $request->descripcion;
+        $bolsa->categoria     = $request->categoria;
         $bolsa->save();
 
         return redirect('/admin');
     }
+
+    public function economia()
+{
+    $ventas = Venta::orderBy('created_at', 'desc')->get();
+    $bolsas = Bolsa::all();
+
+    $totalInvertido     = $bolsas->sum('valor_fabrica');
+    $totalVendido       = $ventas->sum('precio');
+    $totalCostoVendido  = $ventas->sum('valor_fabrica');
+    $gananciaTotal      = $totalVendido - $totalCostoVendido;
+    $inversionActual    = $bolsas->sum('valor_fabrica');
+    $ventasMes          = $ventas->where('created_at', '>=', now()->startOfMonth())->sum('precio');
+    $gananciasMes       = $ventas->where('created_at', '>=', now()->startOfMonth())
+                            ->sum(fn($v) => $v->precio - $v->valor_fabrica);
+
+    return view('admin.economia', compact(
+        'ventas', 'bolsas',
+        'totalInvertido', 'totalVendido',
+        'totalCostoVendido', 'gananciaTotal',
+        'inversionActual', 'ventasMes', 'gananciasMes'
+    ));
+}
 }

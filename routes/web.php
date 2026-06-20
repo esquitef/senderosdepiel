@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/crear', [AdminBolsaController::class, 'create']);
 
+    Route::post('/bolsas/{bolsa}/vender', [AdminBolsaController::class, 'vender'])->name('bolsas.vender');
+Route::get('/senderoeconomia', [AdminBolsaController::class, 'economia'])->name('economia');
+
 Route::post('/bolsas', [AdminBolsaController::class, 'store'])
 ->name('bolsas.store');
 

@@ -197,6 +197,10 @@
                     required
                 >
             </div>
+            <div class="form-group">
+    <label>Costo de Fábrica</label>
+    <input type="number" name="valor_fabrica" value="{{ $bolsa->valor_fabrica }}" step="0.01" required>
+</div>
 
             <div class="form-group">
                 <label>Descripción</label>

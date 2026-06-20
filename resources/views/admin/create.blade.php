@@ -112,6 +112,10 @@
                 required>
 
             </div>
+            <div class="input-group">
+    <label>Costo de Fábrica</label>
+    <input type="number" name="valor_fabrica" step="0.01" required>
+</div>
 
             <div class="input-group">
 

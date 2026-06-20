@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bolsa extends Model
+class Venta extends Model
 {
     protected $fillable = [
         'nombre',
+        'categoria',
         'precio',
         'valor_fabrica',
-        'descripcion',
-        'categoria',
-        'imagen'
+        'imagen',
     ];
 }
