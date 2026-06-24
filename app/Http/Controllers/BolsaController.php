@@ -27,6 +27,7 @@ class BolsaController extends Controller
 
     public function categoria($categoria)
     {
+        $categoria = urldecode($categoria);
         $bolsas = Bolsa::where('categoria', $categoria)->get();
         return view('categoria', compact('bolsas', 'categoria'));
     }
